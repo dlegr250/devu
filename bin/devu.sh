@@ -48,13 +48,14 @@ function devu() {
   util.echo "  branch.delete <branch>    (dlb) # Delete a local branch"
   util.echo "  branch.default                  # Show the default branch"
   util.echo "  branches                    (b) # Show local branches"
-  util.echo "  commits [<number>]        (glo) # Show recent commits (defaults to all)"
+  util.echo "  commits [<number>]        (glo) # Show commits (defaults to all)"
   util.echo "  checkout <branch>          (co) # Checkout a branch"
   util.echo "  checkout.file <file>       (cf) # Checkout a single file from the default branch"
   util.echo "  checkout.issue <issue_id>  (ci) # Checkout a branch prefixed with the issue ID"
   util.echo "  commit <message>                # Commit changes and push to remote"
   util.echo "  force-push                      # Force push changes to remote (with lease)"
   util.echo "  gd                              # Git diff"
+  util.echo "  gl [<number>]                   # Git log (defaults to all)"
   util.echo "  gp                              # Git pull latest changes"
   util.echo "  gs                              # Git status"
   util.echo "  issue <issue_id> <branch>       # Create a branch for the given issue ID"
@@ -106,7 +107,7 @@ function devu.config_file() {
 }
 
 function devu.version() {
-  echo "DEVU Developer Utilities 1.0.0 (2024-05-17)"
+  echo "DEVU Developer Utilities 1.1.0 (2024-05-18)"
 }
 
 # DEVU functions
@@ -346,6 +347,16 @@ function commits() {
     util.echo.execute "git log --oneline"
   else
     util.echo.execute "git log --oneline -n ${number_of_commits}"
+  fi
+}
+
+function gl() {
+  local number_of_commits="${1}"
+
+  if is.blank "${number_of_commits}"; then
+    util.echo.execute "git log"
+  else
+    util.echo.execute "git log -n ${number_of_commits}"
   fi
 }
 

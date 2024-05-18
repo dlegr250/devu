@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "devu/version"
+# No more requiring files manually, Zeitwerk autoloads everything
+require "zeitwerk"
+loader = Zeitwerk::Loader.for_gem
+loader.setup
 
 module Devu
-  class Error < StandardError; end
-  # Your code goes here...
 end
